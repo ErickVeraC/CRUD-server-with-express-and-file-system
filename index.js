@@ -46,6 +46,29 @@ server.post("/students", (request, response) => {
   response.status(201).json(newStudent);
 });
 
+// Eliminar un estudiante con DELETE
+server.delete("/students", (request, response) => {
+  const { name } = request.body;
+  if (!name) {
+    return response.status(400).json({ error: "Student name is required" });
+  }
+
+  const data = fs.readFileSync(dbName, "utf8");
+  let students = JSON.parse(data || "[]");
+  const studentIndex = students.findIndex(
+    (student) => student.name.toLowerCase() === name.toLowerCase()
+  );
+
+  if (studentIndex === -1) {
+    return response.status(404).json({ error: "Student not found" });
+  }
+
+  students.splice(studentIndex, 1);
+  fs.writeFileSync(dbName, JSON.stringify(students), "utf8");
+  console.log(`Student deleted: ${name}`);
+  response.status(200).json(students);
+});
+
 // Resetear la base de datos con DELETE
 server.delete("/students", (request, response) => {
   const students = [];
