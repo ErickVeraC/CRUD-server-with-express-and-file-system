@@ -46,6 +46,13 @@ server.post("/students", (request, response) => {
   response.status(201).json(newStudent);
 });
 
+// Resetear la base de datos con DELETE
+server.delete("/students", (request, response) => {
+  const students = [];
+  fs.writeFileSync(dbName, JSON.stringify(students), "utf8");
+  response.status(200).json(students);
+});
+
 // Middleware para escuchar el servidor
 server.listen(8080, () => {
   console.log("Server is running on port 8080");
