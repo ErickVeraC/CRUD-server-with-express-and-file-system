@@ -13,7 +13,7 @@ init(); // Inicializamos la base de datos
 
 // Ruta básica para la raíz
 server.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Welcome to the students list!");
 });
 
 // Listar a todos los estudiantes con GET
