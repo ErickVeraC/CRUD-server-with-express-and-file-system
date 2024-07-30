@@ -23,10 +23,10 @@ server.get("/students", getStudents);
 server.post("/students", addStudent);
 
 // Eliminar un estudiante con DELETE
-server.delete("/students", deleteStudent);
+server.delete("/students/:name", deleteStudent);
 
 // Resetear la base de datos con DELETE
-server.delete("/students/all", deleteAllStudents);
+server.delete("/students", deleteAllStudents);
 
 // Middleware para escuchar el servidor
 server.listen(8080, () => {
